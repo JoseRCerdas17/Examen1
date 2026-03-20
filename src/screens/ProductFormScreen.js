@@ -19,6 +19,11 @@ export default function ProductFormScreen({ route, navigation }) {
       Alert.alert("Error", "Precio y cantidad deben ser números.");
       return;
     }
+    if (parseFloat(price) <= 0 || parseInt(quantity) < 0) {
+      Alert.alert("Error", "Precio debe ser mayor a 0 y la cantidad no puede ser negativa.");
+      return;
+    }
+
     const data = {
       name,
       price: parseFloat(price),
@@ -40,6 +45,7 @@ export default function ProductFormScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.container}>
+      <Text style={styles.title}>{existing?.id ? "Editar Producto" : "Nuevo Producto"}</Text>
       <Text style={styles.label}>Nombre del producto</Text>
       <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="Ej: Arroz" />
 
@@ -55,6 +61,10 @@ export default function ProductFormScreen({ route, navigation }) {
       <TouchableOpacity style={styles.button} onPress={handleSave}>
         <Text style={styles.buttonText}>{existing?.id ? "Actualizar" : "Guardar"}</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.cancelText}>Cancelar</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -65,4 +75,7 @@ const styles = StyleSheet.create({
   input: { backgroundColor: "#fff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#ddd" },
   button: { backgroundColor: "#4CAF50", padding: 14, borderRadius: 8, alignItems: "center", marginTop: 24, marginBottom: 40 },
   buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  title: {fontSize: 24, fontWeight: "bold", marginBottom: 8, color: "#333" },
+  cancelButton: {padding: 14, borderRadius: 8, alignItems: "center", marginTop: 10, marginBottom: 40 },
+  cancelText: { color: "#999", fontSize: 16 },
 });

@@ -8,20 +8,27 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState("");
 
   const handleRegister = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Por favor completa todos los campos.");
-      return;
-    }
-    if (password.length < 6) {
-      Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres.");
-      return;
-    }
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      Alert.alert("Error", "No se pudo registrar. Verifica que el email sea válido.");
-    }
-  };
+  if (!email || !password) {
+    Alert.alert("Error", "Por favor completa todos los campos.");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    Alert.alert("Error", "Ingresa un email válido.");
+    return;
+  }
+
+  if (password.length < 6) {
+    Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres.");
+    return;
+  }
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    Alert.alert("Error", "No se pudo registrar. El email ya puede estar en uso.");
+  }
+};
 
   return (
     <View style={styles.container}>

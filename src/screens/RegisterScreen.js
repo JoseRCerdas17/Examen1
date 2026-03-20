@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { TouchableOpacity } from "react-native";
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -40,6 +41,9 @@ export default function RegisterScreen({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+  <Text style={styles.link}>¿Ya tienes cuenta? Inicia sesión</Text>
+</TouchableOpacity>
     </View>
   );
 }
@@ -50,4 +54,5 @@ const styles = StyleSheet.create({
   input: { backgroundColor: "#fff", borderRadius: 8, padding: 12, marginBottom: 12, borderWidth: 1, borderColor: "#ddd" },
   button: { backgroundColor: "#4CAF50", padding: 14, borderRadius: 8, alignItems: "center" },
   buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  link: { textAlign: "center", color: "#4CAF50", marginTop: 12 },
 });

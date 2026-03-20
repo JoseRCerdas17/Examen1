@@ -31,7 +31,7 @@ const ProductListScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <Text style={styles.nombre}>{item.nombre}</Text>
-      <Text style={styles.detail}>Precio: ₡{item.price}</Text>
+      <Text style={styles.detail}>Precio: ₡{item.price.toLocaleString()}</Text>
       <Text style={styles.stock}>Stock: {item.quantity}</Text>
     </View>
   );

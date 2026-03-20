@@ -8,17 +8,22 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Por favor completa todos los campos.");
-      return;
-    }
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      Alert.alert("Error", "Credenciales incorrectas. Verifica tu email y contraseña.");
-    }
-  };
+  if (!email || !password) {
+    Alert.alert("Error", "Por favor completa todos los campos.");
+    return;
+  }
 
+  if (!email.includes("@")) {
+    Alert.alert("Error", "Ingresa un email válido.");
+    return;
+  }
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    Alert.alert("Error", "Credenciales incorrectas. Verifica tu email y contraseña.");
+  }
+};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>📦 Inventario</Text>

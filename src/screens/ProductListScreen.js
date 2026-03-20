@@ -47,6 +47,9 @@ const ProductListScreen = () => {
   return (
     <View style={styles.contenedor}>
       <Text style={styles.counter}>Total de productos: {products.length}</Text>
+      {products.some(p => p.quantity <= 5) && (
+        <Text style={styles.alertBanner}>⚠️ Tienes productos con stock bajo</Text>
+      )}
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
@@ -73,6 +76,14 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 10,
     textAlign: 'right',
+  },
+  alertBanner: {
+    backgroundColor: '#FF5722',
+    color: '#fff',
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   lista: {
     gap: 12,
